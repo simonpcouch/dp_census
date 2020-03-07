@@ -2,9 +2,10 @@
 
 # load libraries
 library(tidyverse)
+library(vroom)
 
 # read in the data
-census <- read_csv("data/wide_dp1_150.csv")
+census <- vroom("data/wide_dp1_150.csv")
 
 # from the codebook:
 #   Columns with a "_dp" suffix come from the 2010 Demonstration Data Product, 
@@ -40,10 +41,17 @@ census_tidy <- census %>%
   )) %>%
   select(-variable) %>%
   # then, break up ethnicity/race into two columns
-  separate(ethnicity_race, c("ethnicity", "race"), sep = fixed(": ")) %>%
+  separate(ethnicity_race, 
+           c("ethnicity", "race"), 
+           sep = fixed(": "), 
+           remove = FALSE) %>%
   # pivot to a slightly wider format, where the public and private count
   # estimates are given on the same row
-  pivot_wider(id_cols = c(gisjoin, ethnicity, race, type),
+  pivot_wider(id_cols = c(gisjoin, ethnicity, race, ethnicity_race, type),
               names_from = type,
-              values_from = value)
+              values_from = value) %>%
+  mutate(pct_change = (dp - sf) / sf * 100)
 
+# save a small sample of the data for easier reproducibility from gh
+census_tidy_small <- census_tidy[1:100000,]
+save(census_tidy_small, file = "data/census_tidy_small.Rda")
