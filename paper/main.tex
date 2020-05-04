@@ -4,7 +4,7 @@
 \usepackage{caption}
 \usepackage{graphicx}
 \usepackage{setspace}
-\usepackage[margin=1in]{geometry}   
+\usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \usepackage{cite}
 \usepackage{placeins}
@@ -13,9 +13,13 @@
 \usepackage[T1]{fontenc}
 \usepackage{csquotes}
 \usepackage{colortbl}
+\usepackage{makecell}
 \definecolor{Gray}{gray}{0.85}
 \newcolumntype{a}{>{\columncolor{Gray}}c}
 \newcolumntype{b}{>{\columncolor{white}}c}
+
+% align line-breaked column headers to the right
+\renewcommand\theadalign{cr}
 
 \begin{document}
 

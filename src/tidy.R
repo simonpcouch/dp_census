@@ -50,7 +50,21 @@ census_tidy <- census %>%
   pivot_wider(id_cols = c(gisjoin, ethnicity, race, ethnicity_race, type),
               names_from = type,
               values_from = value) %>%
-  mutate(pct_change = (dp - sf) / sf * 100)
+  mutate(pct_change = (dp - sf) / sf * 100,
+         race_abbrev = case_when(
+           race == "White alone" ~ "White",
+           race == "Black or African American alone" ~ "Black/AA",
+           race == "American Indian and Alaska Native alone" ~ "AI /AN",
+           race == "Asian alone" ~ "Asian",
+           race == "Native Hawaiian and Other Pacific Islander alone" ~ "NH/PI",
+           race == "Some Other Race alone" ~ "Other",
+           race == "Two or More Races" ~ "2+ Races"
+         ),
+         ethnicity_abbrev = case_when(
+           ethnicity == "Not Hispanic or Latino" ~ "Non-H/L",
+           TRUE ~ "H/L"
+         )) %>%
+  unite(ethnicity_race_abbrev, ethnicity_abbrev, race_abbrev, sep = ": ", remove = FALSE)
 
 # save a small sample of the data for easier reproducibility from gh
 census_tidy_small <- census_tidy[1:100000,]
