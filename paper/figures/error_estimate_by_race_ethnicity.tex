@@ -2,8 +2,10 @@
 % Mon May  4 10:50:06 2020
 \begin{table}[ht]
 \centering
-\begin{tabular}{lrrrr}
- Ethnicity/Race Category & Zero & \thead{Less Than Half of \\ True Population} & \thead{Twice the True \\ Population} & \thead{Ten Times the \\ True Population} \\ 
+\begin{tabular}{l|rrrr} 
+ Ethnicity/Race Category & \multicolumn{4}{c}{Proportion of Estimates Resulting in Given Degree of Error} \\
+ \hline
+ & \thead{Population \\ Erased} & \thead{Less Than Half of \\ the True Population} & \thead{Twice the True \\ Population} & \thead{Ten Times the \\ True Population} \\ 
   \hline
 H/L: 2+ Races & 0.179 & 0.179 & 0.107 & 0.014 \\ 
 H/L: AI /AN & 0.469 & 0.469 & 0.087 & 0.009 \\ 
@@ -21,4 +23,6 @@ Non-H/L: 2+ Races & 0.044 & 0.044 & 0.064 & 0.006 \\
   Non-H/L: Other & 0.529 & 0.529 & 0.094 & 0.009 \\ 
   Non-H/L: White & 0.006 & 0.006 & 0.005 & 0.000 \\ 
   \end{tabular}
+  \caption{Proportion of estimates, by census ethnicity/race category, that result in selected degrees of estimation error. White, non-hispanic/latino populations are consistently well over an order of magnitude less likely to have their population erased by the differentially private algorithm than other ethnoracial categories. In general, the variability in differentially private population count estimates for populations of color is significantly greater than that for white populations.}
+  \label{tab:error-by}
 \end{table}
