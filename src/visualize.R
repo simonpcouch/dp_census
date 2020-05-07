@@ -2,6 +2,7 @@
 
 library(tidyverse)
 library(patchwork)
+library(rmutil)
 
 # percent error by race
 error_by_race_plot <- census_tidy %>%
@@ -59,3 +60,28 @@ error_by_true_pop_by_race <- pop_by_race_plot / error_by_true_pop_plot
 
 ggsave("paper/figures/error_by_true_pop.png", error_by_true_pop_by_race,
        width = 4.5, height = 5, units = "in")
+
+
+# finally, a visualization aiming to give intuition for what
+# epsilon-distributed error means for populations of very different sizes
+
+
+dif_priv_plot <- data.frame(x = c(rlaplace(50000, 50, 40), rlaplace(50000, 1000, 40)),
+           type = rep(c("A", "B"), each = 50000)) %>%
+  ggplot(aes(x = x, fill = type)) +
+  geom_density(alpha = .75) +
+  geom_vline(xintercept = 50) +
+  geom_vline(xintercept = 1000) +
+  scale_y_continuous(breaks = NULL, limits = c(0, .014)) +
+  scale_x_continuous(breaks = seq(-500, 1500, 500)) +
+  theme_minimal() +
+  theme(text = element_text(family = "Times"),
+        legend.position = c(.5, .5)) +
+  labs(x = "Estimated Population Count",
+       y = "Density",
+       fill = "Population") +
+  scale_fill_grey()
+
+ggsave("paper/figures/dif_priv.png", dif_priv_plot,
+       width = 4.5, height = 3, units = "in")
+
