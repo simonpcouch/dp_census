@@ -1,2 +1,49 @@
 \section{Results}\label{sec:results}
 
+
+Figure \ref{fig:error-true-pop} examines how the hypothetical distributions proposed in Figure \ref{fig:dif-priv} appear in practice. The upper pane gives the distribution of population counts by racial category---the typical population counts within a census block group for people of color are significantly lower than those for white people. The lower pane, then, shows how a color-blind algorithm can have such a racialized effect. While the algorithms are not sensitive to whether they are estimating population counts for people of color or white people, they perform much worse (in that the absolute magnitude of percent error is much greater) when estimating smaller population counts, which are much more likely to belong to populations of color than to white populations.
+
+\begin{figure}
+   \centering
+   \includegraphics[width=0.75\textwidth]{figures/error_by_true_pop.png}
+   \caption{A pair of plots showing the distribution of true population counts by census block group from the 2010 U.S. census, where the upper pane delineates the density by racial category, and the lower shows the distribution of percent error between true population count and differentially private estimate. Lower population counts are both more likely to occur when describing populations of color and more susceptible to significant error in estimation.}
+   \label{fig:error-true-pop}
+\end{figure}
+
+Figure \ref{fig:error-by-race}, then, shows the implications of implementing differentially private algorithms in a use case such as that shown in Figure \ref{fig:error-true-pop}. In the trial run on 2010 Census data, the distributions of percent error have substantially greater variances for populations of color than for white populations. Further, too, the only distribution of percent error centered around zero is that of white populations; roughly in accordance with the absolute population size, the distribution of percent error is centered closer and closer to $-100$\% (complete erasure.) The Native Hawaiian and Pacific Islander categorization shows a particularly egregious example of this effect, with over 50\% of nonzero population counts completely erased. The fact that some of these distributions are centered around nonzero numbers should be puzzling to those familiar with differentially private algorithms, and is likely a result of post-processing and adjusting for invariants carried out by the Bureau.
+
+\begin{figure}
+   \centering
+   \includegraphics[width=0.75\textwidth]{figures/error_by_race.png}
+   \caption{Distributions of percent error in estimation of true census block group population count by racial category. White populations experience, by far, the least deviation between true and estimated population counts, as well as the only distribution of percent error centered around zero.}
+   \label{fig:error-by-race}
+\end{figure}
+ 
+\subsection{Erasing Races}\label{sec:erase}
+
+Table \ref{tab:error-by} gives the proportion of estimates, by ethnoracial group, that experience abitrarily selected severities of error. Initially, consider the \textit{Population Erased} column, giving the proportion of nonzero populations estimated to contain zero people. For one, more generally, the proportion of populations erased by these algorithms is much greater for racial groups that identify as Hispanic/Latino than for those who do not. As before, smaller populations are increasingly subsceptible to this error; populations of people categorized as Hispanic/Latino Native Hawaiians or Pacific Islanders are erased in over 84\% of trials, and \textit{half} of the ethnoracial population subgroups are erased in at least 37\% of trials. By contrast, white populations are erased in less than 1\% of trials.
+
+Similar disparities in estimation accuracy occur in the remaining three columns. While populations of color are also more likely to have their population counts drastically \textit{over}estimated, I contend that this is not cause for relief. The noise added to a statistic in the privatization process is completely independent of trial. That is, the previous perturbation of a population's true count has no bearing on the next. Resultantly, this overestimation is likely a `one-time' occurence, and, by the appearance of the distributions shown in Table \ref{tab:error-by}, is particularly vulnerable to complete erasure in the next census. As a result, drastic overestimation is also not an acceptable form of error, as it is simply an indicator of  instability.
+
+\input{figures/error_estimate_by_race_ethnicity.tex}
+
+\subsection{Creating Races}\label{sec:create}
+
+Another possible outcome resulting from the implementation of these algorithms is the estimation of positive subpopulation counts for subpopulations that do not exist. Table \ref{tab:nonzero-by} gives the proportion of cases in which this form of error occurs by ethnoracial category. Similarly to Table \ref{tab:error-by}, subpopulations are increasingly vulnerable to this form of inaccuracy as the true subpopulation size decreases.
+
+\input{figures/nonzero_estimate_by_race_ethnicity.tex}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

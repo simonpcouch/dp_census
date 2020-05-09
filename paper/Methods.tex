@@ -1,1 +1,15 @@
-\section{Methods}\label{sec:methods}
+\section{Data \& Methods}\label{sec:methods}
+
+The data used in this paper is a subset of data released by the Bureau in early 2019 consisting of the output from a trial run of the differentially private algorithms on the publicly available 2010 Census data product \cite{bureau_2010_2019}. To facilitate more straightforward comparison, the Integrated Public Use Microdata Series National Historical Geographic Information System (IPUMS NHGIS) released a set of datasets containing the `true' (though privatized with the procedures described in Section \ref{sec:privacy}) data joined to the files containing the differentially private estimates \cite{manson_differentially_2019}. The data files analyzed in this project come from the Block Group (150) level, wide format file.
+
+The analyses in this paper are limited to basic visualizations and tabulations of the original data. The focus of the analyses is the quality of estimation by race and ethnic categories at the census block group level. The choice of metrics of estimation quality are largely arbitrary, chosen to communicate estimation (in)accuracy in the most interpretable way possible. Throughout the analysis, I often refer to `percent error' of an estimate. If $x_{T}$ is some true summary value (subject to the privatization techniques described in Section \ref{sec:privacy}), and $x_{P}$ is the differentially private estimate of the summary value, then the percent error is given by $$(x_P - x_T) / x_T * 100$$ Thus, a percent error of 0\% means that the differentially private estimate was exactly equal to the true value, a percent error of 100\% means that the differentially private estimate was twice as large as the true value, and a percent error of $-100$\% means that the differentially private estimate was zero, while the true value was nonzero. As part of the Bureau's post-processing, negative estimates are rounded up to zero---thus, the minimum percent error in the data is $-100$\%. The maximum percent error is not bounded.
+
+Fully reproducible scripts for downloading, transforming, tidying, visualizing, and analyzing the data are publicly available\footnote{Source code publicly available at: \url{https://github.com/simonpcouch/dp_census}}. 
+
+
+
+
+
+
+
+

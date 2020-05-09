@@ -13,6 +13,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{csquotes}
 \usepackage{colortbl}
+\usepackage{indentfirst}
 \usepackage{makecell}
 \definecolor{Gray}{gray}{0.85}
 \newcolumntype{a}{>{\columncolor{Gray}}c}
@@ -40,16 +41,17 @@
   Color-Blind Algorithmic Racism \\
   \large Race, Differential Privacy, and the 2020 U.S. Census}
        
-\author{\vspace{-20pt} \normalsize \textit{Simon Couch—11 May 2020}}
+\author{\vspace{-20pt} \normalsize \textit{Simon Couch\footnote{Thank you to Kaiyan Shi, Andrew Bray, and Adam Groce for their thoughtful insight on algorithmic considerations.}—11 May 2020}}
 
 \date{}
 
 \maketitle
 
-\doublespace
+%\doublespace
 
+\vspace{-20pt}
 \input{Introduction.tex}
-\input{Literature_Review.tex}
+\input{Background.tex}
 \input{Methods.tex}
 \input{Results.tex}
 \input{Discussion.tex}
@@ -61,7 +63,7 @@
 
 \clearpage
 
-\appendix
-\input{Appendix.tex}
+%\appendix
+%\input{Appendix.tex}
 
 \end{document}
