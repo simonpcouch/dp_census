@@ -13,3 +13,5 @@ private algorithms to privatize population counts for the 2020 U.S. Census.
     `/summaries/`), are stored in the `data` folder.
   - The `paper` folder contains TeX code for the final report—the `main.tex`
     file will compile the current paper draft.
+
+The current paper draft is named `Couch_DP_Census_Racism_2020.pdf`.
